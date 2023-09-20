@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class StatsServerController {
 
-    private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private final StatsServerServiceImpl statsService;
 
@@ -39,8 +39,11 @@ public class StatsServerController {
         LocalDateTime startDT;
         LocalDateTime endDT;
         try {
-            startDT = LocalDateTime.parse(start, DTF);
-            endDT = LocalDateTime.parse(end, DTF);
+            startDT = LocalDateTime.parse(start, formatter);
+            endDT = LocalDateTime.parse(end, formatter);
+            if (startDT.isAfter(endDT)) {
+                return ResponseEntity.badRequest().build();
+            }
         } catch (DateTimeParseException e) {
             return ResponseEntity.badRequest().build();
         }
