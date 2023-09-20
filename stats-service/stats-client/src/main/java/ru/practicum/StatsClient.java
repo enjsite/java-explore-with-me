@@ -8,13 +8,16 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class StatsClient extends BaseClient {
 
+    @Value("http://ewm-stats-server:9090")
+    private String serverUrl;
+
     @Autowired
-    public StatsClient(@Value("${stats-server.url}") String serverUrl, RestTemplateBuilder builder) {
+    public StatsClient(@Value("http://ewm-stats-server:9090") String serverUrl, RestTemplateBuilder builder) {
         super(
                 builder
                         .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
@@ -24,19 +27,22 @@ public class StatsClient extends BaseClient {
     }
 
     public ResponseEntity<Object> addHit(EndpointHitDto endpointHitDto) {
-        return post("/hit", null, null, endpointHitDto);
+        return post(serverUrl + "/hit", endpointHitDto);
     }
 
     public ResponseEntity<Object> getStats(String start,
                                            String end,
-                                           String[] uris,
+                                           String uris,
                                            boolean unique) {
+
         Map<String, Object> parameters = Map.of(
                 "start", start,
                 "end", end,
                 "uris", uris,
                 "unique", unique
         );
-        return patch("/stats?start={start}&end={end}&uris={uris}&unique={unique}", null, parameters, null);
+
+        return get(serverUrl + "/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
     }
+
 }
