@@ -31,6 +31,8 @@ public class CompilationServiceImpl implements CompilationService {
     EventRepository eventRepository;
     CompilationMapper compilationMapper;
 
+    String compilationIsNotExistErr = "Подборка с id %d не существует";
+
     @Override
     public CompilationDto add(NewCompilationDto compilationDto) {
 
@@ -50,7 +52,7 @@ public class CompilationServiceImpl implements CompilationService {
     public CompilationDto get(Long compId) {
 
         Compilation compilation = compilationRepository.findById(compId).orElseThrow(() -> {
-            throw new ObjectNotFoundException(String.format("Подборка с id %d не существует", compId));
+            throw new ObjectNotFoundException(String.format(compilationIsNotExistErr, compId));
         });
 
         return compilationMapper.compilationToCompilationDto(compilation);
@@ -77,7 +79,7 @@ public class CompilationServiceImpl implements CompilationService {
         try {
             compilationRepository.deleteById(compId);
         } catch (EmptyResultDataAccessException e) {
-            throw new ObjectNotFoundException(String.format("Подборка с id %d не существует", compId));
+            throw new ObjectNotFoundException(String.format(compilationIsNotExistErr, compId));
         }
     }
 
@@ -85,7 +87,7 @@ public class CompilationServiceImpl implements CompilationService {
     public CompilationDto update(Long compId, UpdateCompilationRequest compRequest) {
 
         Compilation compilation = compilationRepository.findById(compId).orElseThrow(() -> {
-            throw new ObjectNotFoundException(String.format("Подборка с id %d не существует", compId));
+            throw new ObjectNotFoundException(String.format(compilationIsNotExistErr, compId));
         });
 
         updateCompilation(compilation, compRequest);

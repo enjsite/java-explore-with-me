@@ -32,6 +32,8 @@ public class CategoryServiceImpl implements CategoryService {
     CategoryRepository categoryRepository;
     EventRepository eventRepository;
 
+    String categoryIsNotExistErr = "Категория с id %d не существует.";
+
     @Override
     public CategoryDto add(NewCategoryDto newCategoryDto) {
 
@@ -50,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto get(Long catId) {
 
         Category category = categoryRepository.findById(catId).orElseThrow(() -> {
-            throw new ObjectNotFoundException(String.format("Категория с id %d не существует.", catId));
+            throw new ObjectNotFoundException(String.format(categoryIsNotExistErr, catId));
         });
 
         return categoryMapper.categoryToCategoryDto(category);
@@ -79,7 +81,7 @@ public class CategoryServiceImpl implements CategoryService {
         try {
             categoryRepository.deleteById(catId);
         } catch (EmptyResultDataAccessException e) {
-            throw new ObjectNotFoundException(String.format("Категория с id %d не существует.", catId));
+            throw new ObjectNotFoundException(String.format(categoryIsNotExistErr, catId));
         }
     }
 
@@ -87,7 +89,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto update(Long catId, NewCategoryDto categoryDto) {
 
         Category category = categoryRepository.findById(catId).orElseThrow(() -> {
-            throw new ObjectNotFoundException(String.format("Категория с id %d не существует.", catId));
+            throw new ObjectNotFoundException(String.format(categoryIsNotExistErr, catId));
         });
 
         category.setName(categoryDto.getName());

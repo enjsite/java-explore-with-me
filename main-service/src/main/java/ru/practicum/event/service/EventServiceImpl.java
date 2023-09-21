@@ -53,12 +53,17 @@ public class EventServiceImpl implements EventService {
     EventMapper eventMapper;
     StatsClient statsClient;
 
+    String categoryNotFoundErr = "Категория не найдена.";
+    String startIsAfterOrEqualEndErr = "Время начала не должно быть позже или равно времени окончания.";
+    String eventNotFoundErr = "Событие %d не найдено";
+    String userNotFoundErr = "Пользователь %d не найден";
+
     @Override
     public List<EventFullDto> getAdminEvents(List<Long> users, List<EventState> states, List<Long> categories,
                                              LocalDateTime rangeStart, LocalDateTime rangeEnd, Integer from, Integer size) {
 
         if ((rangeStart != null && rangeEnd != null) && (rangeStart.isAfter(rangeEnd) || rangeStart.isEqual(rangeEnd))) {
-            throw new IncorrectRequestException("Время начала не должно быть позже или равно времени окончания.");
+            throw new IncorrectRequestException(startIsAfterOrEqualEndErr);
         }
 
         Pageable pageable = PageRequest.of(from / size, size, Sort.unsorted());
@@ -86,7 +91,7 @@ public class EventServiceImpl implements EventService {
     public EventFullDto updateAdminEvent(Long eventId, EventUpdateDto eventUpdateDto) {
 
         Event event = eventRepository.findById(eventId).orElseThrow(() -> {
-            throw new ObjectNotFoundException(String.format("Событие %d не найдено", eventId));
+            throw new ObjectNotFoundException(String.format(eventNotFoundErr, eventId));
         });
 
         updateEvent(event, eventUpdateDto);
@@ -119,7 +124,7 @@ public class EventServiceImpl implements EventService {
                                       EventSort sort, HttpServletRequest request) {
 
         if ((rangeStart != null && rangeEnd != null) && (rangeStart.isAfter(rangeEnd) || rangeStart.isEqual(rangeEnd))) {
-            throw new IncorrectRequestException("Время начала не должно быть позже или равно времени окончания.");
+            throw new IncorrectRequestException(startIsAfterOrEqualEndErr);
         }
 
         Pageable pageable = sort.equals(EventSort.VIEWS)
@@ -145,7 +150,7 @@ public class EventServiceImpl implements EventService {
     public EventFullDto get(Long eventId, HttpServletRequest request) {
 
         Event event = eventRepository.findByIdAndStateIs(eventId, EventState.PUBLISHED).orElseThrow(() -> {
-            throw new ObjectNotFoundException(String.format("Событие %d не найдено", eventId));
+            throw new ObjectNotFoundException(String.format(eventNotFoundErr, eventId));
         });
 
         updateViews(Collections.singletonList(event), request);
@@ -177,7 +182,7 @@ public class EventServiceImpl implements EventService {
     public EventFullDto getUserEventById(Long userId, Long eventId) {
 
         Event event = eventRepository.findByIdAndInitiatorId(eventId, userId).orElseThrow(() -> {
-            throw new ObjectNotFoundException(String.format("Событие %d не найдено", eventId));
+            throw new ObjectNotFoundException(String.format(eventNotFoundErr, eventId));
         });
 
         event.setViews(event.getViews() + 1);
@@ -190,7 +195,7 @@ public class EventServiceImpl implements EventService {
     public EventFullDto updateUserEventById(Long userId, Long eventId, EventUpdateDto eventDto) {
 
         Event event = eventRepository.findByIdAndInitiatorId(eventId, userId).orElseThrow(() -> {
-            throw new ObjectNotFoundException(String.format("Событие %d не найдено", eventId));
+            throw new ObjectNotFoundException(String.format(eventNotFoundErr, eventId));
         });
 
         if (event.getState().equals(EventState.PUBLISHED)) {
@@ -241,7 +246,7 @@ public class EventServiceImpl implements EventService {
     private void updateEvent(Event event, Long userId, NewEventDto eventDto) {
 
         User initiator = userRepository.findById(userId).orElseThrow(() -> {
-            throw new ObjectNotFoundException(String.format("Пользователь %d не найден", userId));
+            throw new ObjectNotFoundException(String.format(userNotFoundErr, userId));
         });
 
         event.setInitiator(initiator);
@@ -257,7 +262,7 @@ public class EventServiceImpl implements EventService {
         event.setCreatedOn(LocalDateTime.now());
 
         Category category = categoryRepository.findById(eventDto.getCategory()).orElseThrow(() -> {
-            throw new ObjectNotFoundException("Категория не найдена.");
+            throw new ObjectNotFoundException(categoryNotFoundErr);
         });
         event.setCategory(category);
 
@@ -279,7 +284,7 @@ public class EventServiceImpl implements EventService {
 
         if (eventUpdateDto.getCategory() != null) {
             Category category = categoryRepository.findById(eventUpdateDto.getCategory())
-                    .orElseThrow(() -> new ObjectNotFoundException("Категория не найдена."));
+                    .orElseThrow(() -> new ObjectNotFoundException(categoryNotFoundErr));
             event.setCategory(category);
         }
 
