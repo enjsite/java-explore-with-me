@@ -6,12 +6,9 @@ import ru.practicum.comment.model.Comment;
 import ru.practicum.comment.model.CommentStatus;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-
-    //Optional<Comment> findByIdAndUserIdAndEventId(Long commentId, Long userId, Long eventId);
 
     List<Comment> findAllByUserIdAndStatus(Long userId, CommentStatus status);
 
