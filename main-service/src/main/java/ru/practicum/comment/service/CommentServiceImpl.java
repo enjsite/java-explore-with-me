@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
     String commentNotFoundErr = "Комментарий %d не найден";
     String eventNotFoundErr = "Событие %d не найдено";
     String userNotFoundErr = "Пользователь %d не найден";
-    String commentStatusErr = "Комментарий на модерации.";
+    String commentStatusErr = "Комментарий %d недоступен, поскольку находится на модерации в статусе %s.";
 
     @Override
     public CommentDto getCommentById(Long userId, Long eventId, Long commentId) {
@@ -53,7 +53,7 @@ public class CommentServiceImpl implements CommentService {
         });
 
         if (comment.getStatus().equals(CommentStatus.PENDING)) {
-            throw new RequestConflictException(commentStatusErr);
+            throw new RequestConflictException(String.format(commentStatusErr, commentId, comment.getStatus()));
         }
 
         return commentMapper.commentToCommentDto(comment);
@@ -102,7 +102,7 @@ public class CommentServiceImpl implements CommentService {
         });
 
         if (comment.getStatus().equals(CommentStatus.PENDING)) {
-            throw new RequestConflictException(commentStatusErr);
+            throw new RequestConflictException(String.format(commentStatusErr, commentId, comment.getStatus()));
         }
 
         comment.setCreatedOn(LocalDateTime.now());
