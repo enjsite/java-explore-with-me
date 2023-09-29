@@ -1,0 +1,1926 @@
+{
+	"info": {
+		"_postman_id": "ddbb5536-b6ad-4247-a715-52a5d518b648",
+		"name": "Test Explore With Me: Feature_Comments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28040832"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "User 136 create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 201 and json body response\", function () {",
+									"    pm.response.to.have.status(201);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Test user 'id' field\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('id');",
+									"    pm.expect(jsonData.id, '\"id\" must be 136').to.eql(136);",
+									"});",
+									"pm.test(\"Test user 'email' field\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('email');",
+									"    pm.expect(jsonData.email, '\"email\" must be \"user136@mail.com\"').to.eql('user136@mail.com');",
+									"});",
+									"pm.test(\"Test user 'name' field\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('name');",
+									"    pm.expect(jsonData.name, '\"name\" must be \"user136\"').to.eql('user136');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"user136\",\n    \"email\": \"user136@mail.com\"\n}"
+						},
+						"url": "{{baseUrl}}/admin/users"
+					},
+					"response": []
+				},
+				{
+					"name": "User 137 create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 201 and json body response\", function () {",
+									"    pm.response.to.have.status(201);",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"Test user 'id' field\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('id');",
+									"    pm.expect(jsonData.id, '\"id\" must be 137').to.eql(137);",
+									"});",
+									"pm.test(\"Test user 'email' field\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('email');",
+									"    pm.expect(jsonData.email, '\"email\" must be \"user137@mail.com\"').to.eql('user137@mail.com');",
+									"});",
+									"pm.test(\"Test user 'name' field\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('name');",
+									"    pm.expect(jsonData.name, '\"name\" must be \"user137\"').to.eql('user137');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"user137\",\n    \"email\": \"user137@mail.com\"\n}"
+						},
+						"url": "{{baseUrl}}/admin/users"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "events",
+			"item": [
+				{
+					"name": "Event 106 by user 136",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 201 and json body response\", function () {\r",
+									"    pm.response.to.have.status(201);  \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Event must contain fields: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, location, requestModeration\", function () {\r",
+									"    pm.expect(target).to.have.property('id');\r",
+									"    pm.expect(target).to.have.property('title');\r",
+									"    pm.expect(target).to.have.property('annotation');\r",
+									"    pm.expect(target).to.have.property('category');\r",
+									"    pm.expect(target).to.have.property('paid');\r",
+									"    pm.expect(target).to.have.property('eventDate');\r",
+									"    pm.expect(target).to.have.property('initiator');\r",
+									"    pm.expect(target).to.have.property('description');\r",
+									"    pm.expect(target).to.have.property('participantLimit');\r",
+									"    pm.expect(target).to.have.property('state');\r",
+									"    pm.expect(target).to.have.property('createdOn');\r",
+									"    pm.expect(target).to.have.property('location');\r",
+									"    pm.expect(target).to.have.property('requestModeration');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request data must be equal to response data\", function () {\r",
+									"    pm.expect(target.id).to.not.be.null;\r",
+									"    pm.expect(target.title).equal(source.title, 'Event title in request and response must be equal');\r",
+									"    pm.expect(target.annotation).equal(source.annotation, 'Event annotation in request and response must be equal');\r",
+									"    pm.expect(target.paid.toString()).equal(source.paid.toString(), 'Event \"paid\" parameter in request and response must be equal');\r",
+									"    pm.expect(target.eventDate).equal(source.eventDate, 'Event date in request and response must be equal');\r",
+									"    pm.expect(target.description).equal(source.description, 'Event description in request and response must be equal');\r",
+									"    pm.expect(target.participantLimit.toString()).equal(source.participantLimit.toString(), 'Event participantLimit in request and response must be equal');\r",
+									"    pm.expect(target.location.lat.toString()).equal(source.location.lat.toString(), 'Event location latitude(lat) in request and response must be equal');\r",
+									"    pm.expect(target.location.lon.toString()).equal(source.location.lon.toString(), 'Event location longitude(lon) in request and response must be equal');\r",
+									"    pm.expect(target.requestModeration.toString()).equal(source.requestModeration.toString(), 'Event \"requestModeration\" parameter in request and response must be equal');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"annotation\": \"24.09 Watching film together in the park\",\r\n    \"category\": 1,\r\n    \"description\": \"Looking for pals to contemplate raccoon existence in the park\",\r\n    \"eventDate\": \"2024-09-11 13:00:00\",\r\n    \"location\": {\r\n        \"description\": \"Park\",\r\n        \"lat\": 35.6,\r\n        \"lon\": 22.3\r\n    },\r\n    \"paid\": false,\r\n    \"participantLimit\": 0,\r\n    \"requestModeration\": true,\r\n    \"title\": \"Film watching\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "136",
+									"description": "(Required) current user id"
+								}
+							]
+						},
+						"description": "Обратите внимание: дата и время на которые намечено событие не может быть раньше, чем через два часа от текущего момента"
+					},
+					"response": []
+				},
+				{
+					"name": "Event 107 by user 137",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 201 and json body response\", function () {\r",
+									"    pm.response.to.have.status(201);  \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Event must contain fields: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, location, requestModeration\", function () {\r",
+									"    pm.expect(target).to.have.property('id');\r",
+									"    pm.expect(target).to.have.property('title');\r",
+									"    pm.expect(target).to.have.property('annotation');\r",
+									"    pm.expect(target).to.have.property('category');\r",
+									"    pm.expect(target).to.have.property('paid');\r",
+									"    pm.expect(target).to.have.property('eventDate');\r",
+									"    pm.expect(target).to.have.property('initiator');\r",
+									"    pm.expect(target).to.have.property('description');\r",
+									"    pm.expect(target).to.have.property('participantLimit');\r",
+									"    pm.expect(target).to.have.property('state');\r",
+									"    pm.expect(target).to.have.property('createdOn');\r",
+									"    pm.expect(target).to.have.property('location');\r",
+									"    pm.expect(target).to.have.property('requestModeration');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request data must be equal to response data\", function () {\r",
+									"    pm.expect(target.id).to.not.be.null;\r",
+									"    pm.expect(target.title).equal(source.title, 'Event title in request and response must be equal');\r",
+									"    pm.expect(target.annotation).equal(source.annotation, 'Event annotation in request and response must be equal');\r",
+									"    pm.expect(target.paid.toString()).equal(source.paid.toString(), 'Event \"paid\" parameter in request and response must be equal');\r",
+									"    pm.expect(target.eventDate).equal(source.eventDate, 'Event date in request and response must be equal');\r",
+									"    pm.expect(target.description).equal(source.description, 'Event description in request and response must be equal');\r",
+									"    pm.expect(target.participantLimit.toString()).equal(source.participantLimit.toString(), 'Event participantLimit in request and response must be equal');\r",
+									"    pm.expect(target.location.lat.toString()).equal(source.location.lat.toString(), 'Event location latitude(lat) in request and response must be equal');\r",
+									"    pm.expect(target.location.lon.toString()).equal(source.location.lon.toString(), 'Event location longitude(lon) in request and response must be equal');\r",
+									"    pm.expect(target.requestModeration.toString()).equal(source.requestModeration.toString(), 'Event \"requestModeration\" parameter in request and response must be equal');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"annotation\": \"25.10 Gathering in the perk\",\r\n    \"category\": 2,\r\n    \"description\": \"Looking to drink tea in our company\",\r\n    \"eventDate\": \"2024-10-25 17:00:00\",\r\n    \"location\": {\r\n        \"description\": \"Perk\",\r\n        \"lat\": 127.6,\r\n        \"lon\": 269.3\r\n    },\r\n    \"paid\": false,\r\n    \"participantLimit\": 5,\r\n    \"requestModeration\": true,\r\n    \"title\": \"Black Mirror\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137",
+									"description": "(Required) current user id"
+								}
+							]
+						},
+						"description": "Обратите внимание: дата и время на которые намечено событие не может быть раньше, чем через два часа от текущего момента"
+					},
+					"response": []
+				},
+				{
+					"name": "Event 108 by user 137",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 201 and json body response\", function () {\r",
+									"    pm.response.to.have.status(201);  \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Event must contain fields: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, location, requestModeration\", function () {\r",
+									"    pm.expect(target).to.have.property('id');\r",
+									"    pm.expect(target).to.have.property('title');\r",
+									"    pm.expect(target).to.have.property('annotation');\r",
+									"    pm.expect(target).to.have.property('category');\r",
+									"    pm.expect(target).to.have.property('paid');\r",
+									"    pm.expect(target).to.have.property('eventDate');\r",
+									"    pm.expect(target).to.have.property('initiator');\r",
+									"    pm.expect(target).to.have.property('description');\r",
+									"    pm.expect(target).to.have.property('participantLimit');\r",
+									"    pm.expect(target).to.have.property('state');\r",
+									"    pm.expect(target).to.have.property('createdOn');\r",
+									"    pm.expect(target).to.have.property('location');\r",
+									"    pm.expect(target).to.have.property('requestModeration');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request data must be equal to response data\", function () {\r",
+									"    pm.expect(target.id).to.not.be.null;\r",
+									"    pm.expect(target.title).equal(source.title, 'Event title in request and response must be equal');\r",
+									"    pm.expect(target.annotation).equal(source.annotation, 'Event annotation in request and response must be equal');\r",
+									"    pm.expect(target.paid.toString()).equal(source.paid.toString(), 'Event \"paid\" parameter in request and response must be equal');\r",
+									"    pm.expect(target.eventDate).equal(source.eventDate, 'Event date in request and response must be equal');\r",
+									"    pm.expect(target.description).equal(source.description, 'Event description in request and response must be equal');\r",
+									"    pm.expect(target.participantLimit.toString()).equal(source.participantLimit.toString(), 'Event participantLimit in request and response must be equal');\r",
+									"    pm.expect(target.location.lat.toString()).equal(source.location.lat.toString(), 'Event location latitude(lat) in request and response must be equal');\r",
+									"    pm.expect(target.location.lon.toString()).equal(source.location.lon.toString(), 'Event location longitude(lon) in request and response must be equal');\r",
+									"    pm.expect(target.requestModeration.toString()).equal(source.requestModeration.toString(), 'Event \"requestModeration\" parameter in request and response must be equal');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"annotation\": \"26.11 Cats club meeting\",\r\n    \"category\": 1,\r\n    \"description\": \"Meet new friends with your cet at the park\",\r\n    \"eventDate\": \"2024-11-26 18:00:00\",\r\n    \"location\": {\r\n        \"description\": \"Park\",\r\n        \"lat\": 184.6,\r\n        \"lon\": 274.3\r\n    },\r\n    \"paid\": false,\r\n    \"participantLimit\": 0,\r\n    \"requestModeration\": false,\r\n    \"title\": \"Cats club meeting\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137",
+									"description": "(Required) current user id"
+								}
+							]
+						},
+						"description": "Обратите внимание: дата и время на которые намечено событие не может быть раньше, чем через два часа от текущего момента"
+					},
+					"response": []
+				},
+				{
+					"name": "Event 106 set Cancel",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 200 and json body response\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Event must contain fields: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, publishedOn, location, requestModeration\", function () {\r",
+									"    pm.expect(target).to.have.property('id');\r",
+									"    pm.expect(target).to.have.property('title');\r",
+									"    pm.expect(target).to.have.property('annotation');\r",
+									"    pm.expect(target).to.have.property('category');\r",
+									"    pm.expect(target).to.have.property('paid');\r",
+									"    pm.expect(target).to.have.property('eventDate');\r",
+									"    pm.expect(target).to.have.property('initiator');\r",
+									"    pm.expect(target).to.have.property('description');\r",
+									"    pm.expect(target).to.have.property('participantLimit');\r",
+									"    pm.expect(target).to.have.property('state');\r",
+									"    pm.expect(target).to.have.property('createdOn');\r",
+									"    pm.expect(target).to.have.property('publishedOn');\r",
+									"    pm.expect(target).to.have.property('location');\r",
+									"    pm.expect(target).to.have.property('requestModeration');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request data must be equal to response data\", function () {\r",
+									"    pm.expect(target.state).equal(\"CANCELED\", 'Event state must change from PENDING to CANCELED when stateAction equals REJECT_EVENT');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stateAction\": \"REJECT_EVENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/events/:eventId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								":eventId"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "106",
+									"description": "(Required)"
+								}
+							]
+						},
+						"description": "Обратите внимание:\n - дата начала события должна быть не ранее чем за час от даты публикации.\n- событие должно быть в состоянии ожидания публикации"
+					},
+					"response": []
+				},
+				{
+					"name": "Event 107 set Published",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 200 and json body response\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Event must contain fields: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, publishedOn, location, requestModeration\", function () {\r",
+									"    pm.expect(target).to.have.property('id');\r",
+									"    pm.expect(target).to.have.property('title');\r",
+									"    pm.expect(target).to.have.property('annotation');\r",
+									"    pm.expect(target).to.have.property('category');\r",
+									"    pm.expect(target).to.have.property('paid');\r",
+									"    pm.expect(target).to.have.property('eventDate');\r",
+									"    pm.expect(target).to.have.property('initiator');\r",
+									"    pm.expect(target).to.have.property('description');\r",
+									"    pm.expect(target).to.have.property('participantLimit');\r",
+									"    pm.expect(target).to.have.property('state');\r",
+									"    pm.expect(target).to.have.property('createdOn');\r",
+									"    pm.expect(target).to.have.property('publishedOn');\r",
+									"    pm.expect(target).to.have.property('location');\r",
+									"    pm.expect(target).to.have.property('requestModeration');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request data must be equal to response data\", function () {\r",
+									"    pm.expect(target.state).equal(\"PUBLISHED\", 'Event state must change from PENDING to PUBLISHED when stateAction equals PUBLISH_EVENT');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stateAction\": \"PUBLISH_EVENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/events/:eventId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								":eventId"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "107",
+									"description": "(Required)"
+								}
+							]
+						},
+						"description": "Обратите внимание:\n - дата начала события должна быть не ранее чем за час от даты публикации.\n- событие должно быть в состоянии ожидания публикации"
+					},
+					"response": []
+				},
+				{
+					"name": "Event 108 set Published",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 200 and json body response\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Event must contain fields: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, publishedOn, location, requestModeration\", function () {\r",
+									"    pm.expect(target).to.have.property('id');\r",
+									"    pm.expect(target).to.have.property('title');\r",
+									"    pm.expect(target).to.have.property('annotation');\r",
+									"    pm.expect(target).to.have.property('category');\r",
+									"    pm.expect(target).to.have.property('paid');\r",
+									"    pm.expect(target).to.have.property('eventDate');\r",
+									"    pm.expect(target).to.have.property('initiator');\r",
+									"    pm.expect(target).to.have.property('description');\r",
+									"    pm.expect(target).to.have.property('participantLimit');\r",
+									"    pm.expect(target).to.have.property('state');\r",
+									"    pm.expect(target).to.have.property('createdOn');\r",
+									"    pm.expect(target).to.have.property('publishedOn');\r",
+									"    pm.expect(target).to.have.property('location');\r",
+									"    pm.expect(target).to.have.property('requestModeration');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request data must be equal to response data\", function () {\r",
+									"    pm.expect(target.state).equal(\"PUBLISHED\", 'Event state must change from PENDING to PUBLISHED when stateAction equals PUBLISH_EVENT');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stateAction\": \"PUBLISH_EVENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/events/:eventId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								":eventId"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "108",
+									"description": "(Required) id события"
+								}
+							]
+						},
+						"description": "Обратите внимание:\n - дата начала события должна быть не ранее чем за час от даты публикации.\n- событие должно быть в состоянии ожидания публикации"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comments",
+			"item": [
+				{
+					"name": " Сomment 1 for event 107 by user 136",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 201 and json body response\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Comment must contain fields: text, createdOn, user, event\", function () {\r",
+									"    pm.expect(target).to.have.property('text');\r",
+									"    pm.expect(target).to.have.property('createdOn');\r",
+									"    pm.expect(target).to.have.property('user');\r",
+									"    pm.expect(target).to.have.property('event');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request data must be equal to response data\", function () {\r",
+									"    pm.expect(target.text).to.not.be.null;\r",
+									"    pm.expect(source.text).equal(target.text, 'Comment text in request and response must be equal');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Do they serve lactose-free latte there?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "136"
+								},
+								{
+									"key": "eventId",
+									"value": "107"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Сomment 2 for event 108 by user 137",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 201 and json body response\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Comment must contain fields: text, createdOn, user, event\", function () {\r",
+									"    pm.expect(target).to.have.property('text');\r",
+									"    pm.expect(target).to.have.property('createdOn');\r",
+									"    pm.expect(target).to.have.property('user');\r",
+									"    pm.expect(target).to.have.property('event');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request data must be equal to response data\", function () {\r",
+									"    pm.expect(target.text).to.not.be.null;\r",
+									"    pm.expect(source.text).equal(target.text, 'Comment text in request and response must be equal');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Can I bring a friend?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								},
+								{
+									"key": "eventId",
+									"value": "108"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Сomment 3 for event 107 by user 137 owner",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 201 and json body response\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Comment must contain fields: text, createdOn, user, event\", function () {\r",
+									"    pm.expect(target).to.have.property('text');\r",
+									"    pm.expect(target).to.have.property('createdOn');\r",
+									"    pm.expect(target).to.have.property('user');\r",
+									"    pm.expect(target).to.have.property('event');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request data must be equal to response data\", function () {\r",
+									"    pm.expect(target.text).to.not.be.null;\r",
+									"    pm.expect(source.text).equal(target.text, 'Comment text in request and response must be equal');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Can I bring a friend?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								},
+								{
+									"key": "eventId",
+									"value": "107"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comment for event 107 bu not exists user 150",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 404 and json body response\", function () {\r",
+									"    pm.response.to.be.notFound;  \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"This shouldn't've worked\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "150"
+								},
+								{
+									"key": "eventId",
+									"value": "107"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comment for not exists event 150 by user 137",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 404 and json body response\", function () {\r",
+									"    pm.response.to.be.notFound;  \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"This shouldn't've worked\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								},
+								{
+									"key": "eventId",
+									"value": "150"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comment 1 and 2 set Published",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 200 and json body response\", function () {\r",
+									"    pm.response.to.be.ok;   \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response body must contain a list of 2 comments\"), function () {\r",
+									"    pm.expect(target).length(2);\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Category must contain fields: id, name\", function () {\r",
+									"    pm.expect(target[0]).to.have.property('text');\r",
+									"    pm.expect(target[0]).to.have.property('createdOn');\r",
+									"    pm.expect(target[0]).to.have.property('user');\r",
+									"    pm.expect(target[0]).to.have.property('event');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commentIds\": [1, 2],\r\n    \"status\": \"PUBLISHED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/admin/comments"
+					},
+					"response": []
+				},
+				{
+					"name": "Comment 3 Rejected",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 200 and json body response\", function () {\r",
+									"    pm.response.to.be.ok;   \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response body must contain an empty list\"), function () {\r",
+									"    pm.expect(target).length(0);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commentIds\": [3],\r\n    \"status\": \"REJECTED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/admin/comments"
+					},
+					"response": []
+				},
+				{
+					"name": "Comment event 107 by user 136",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 200 and json body response\", function () {\r",
+									"    pm.response.to.be.ok;   \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Comment must contain fields: text, createdOn, user, event\", function () {\r",
+									"    pm.expect(target).to.have.property('text');\r",
+									"    pm.expect(target).to.have.property('createdOn');\r",
+									"    pm.expect(target).to.have.property('user');\r",
+									"    pm.expect(target).to.have.property('event');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request data must be equal to response data\", function () {\r",
+									"    pm.expect(target.user.id).equal(136, 'User id in request and response must be equal');\r",
+									"    pm.expect(target.event.id).equal(107, 'Event id in request and response must be equal');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments/:commentId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "136"
+								},
+								{
+									"key": "eventId",
+									"value": "107"
+								},
+								{
+									"key": "commentId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Not exists comment 50 for event 107 by user 137",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 404 and json body response\", function () {\r",
+									"    pm.response.to.be.notFound;   \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments/:commentId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								},
+								{
+									"key": "eventId",
+									"value": "107"
+								},
+								{
+									"key": "commentId",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Сomment 5 for event 108 by user 137",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 201 and json body response\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const source = JSON.parse(pm.request.body.raw);\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Comment must contain fields: text, createdOn, user, event\", function () {\r",
+									"    pm.expect(target).to.have.property('text');\r",
+									"    pm.expect(target).to.have.property('createdOn');\r",
+									"    pm.expect(target).to.have.property('user');\r",
+									"    pm.expect(target).to.have.property('event');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request data must be equal to response data\", function () {\r",
+									"    pm.expect(target.text).to.not.be.null;\r",
+									"    pm.expect(source.text).equal(target.text, 'Comment text in request and response must be equal');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Comment 5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								},
+								{
+									"key": "eventId",
+									"value": "108"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comment 4 pending for event 108 by user 137",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 409 and json body response\", function () {\r",
+									"    pm.response.to.have.status(409);   \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments/:commentId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								},
+								{
+									"key": "eventId",
+									"value": "108"
+								},
+								{
+									"key": "commentId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comments user 137",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 200 and json body response\", function () {\r",
+									"    pm.response.to.be.ok;   \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response body must contain a list of 1 comments\"), function () {\r",
+									"    pm.expect(target).length(1);\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Comment must contain fields: text, createdOn, user, event\", function () {\r",
+									"    pm.expect(target[0]).to.have.property('text');\r",
+									"    pm.expect(target[0]).to.have.property('createdOn');\r",
+									"    pm.expect(target[0]).to.have.property('user');\r",
+									"    pm.expect(target[0]).to.have.property('event');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request data must be equal to response data\", function () {\r",
+									"    pm.expect(target[0].user.id).equal(137, 'User id in request and response must be equal');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/comments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comments event 107",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 200 and json body response\", function () {\r",
+									"    pm.response.to.be.ok;   \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response body must contain a list of 1 comment\"), function () {\r",
+									"    pm.expect(target).length(1);\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Comment must contain fields: text, createdOn, user, event\", function () {\r",
+									"    pm.expect(target[0]).to.have.property('text');\r",
+									"    pm.expect(target[0]).to.have.property('createdOn');\r",
+									"    pm.expect(target[0]).to.have.property('user');\r",
+									"    pm.expect(target[0]).to.have.property('event');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request data must be equal to response data\", function () {\r",
+									"    pm.expect(target[0].user.id).equal(136, 'User id in request and response must be equal');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								},
+								{
+									"key": "eventId",
+									"value": "107"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comments user 137 event 105",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 200 and json body response\", function () {\r",
+									"    pm.response.to.be.ok;   \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body must contain an empty list\"), function () {\r",
+									"    pm.response.body.length(0);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								},
+								{
+									"key": "eventId",
+									"value": "105"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comment 1 for event 107 by user 136",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 200 and json body response\", function () {\r",
+									"    pm.response.to.be.ok;   \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const target = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Category must contain fields: id, name\", function () {\r",
+									"    pm.expect(target).to.have.property('text');\r",
+									"    pm.expect(target).to.have.property('createdOn');\r",
+									"    pm.expect(target).to.have.property('user');\r",
+									"    pm.expect(target).to.have.property('event');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Request data must be equal to response data\", function () {\r",
+									"    pm.expect(target.user.id).equal(136, 'User id in request and response must be equal');\r",
+									"    pm.expect(target.event.id).equal(107, 'Event id in request and response must be equal');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"This should've worked\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments/:commentId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "136"
+								},
+								{
+									"key": "eventId",
+									"value": "107"
+								},
+								{
+									"key": "commentId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comment 2 for event 108 by user 136 not author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 404 and json body response\", function () {\r",
+									"    pm.response.to.be.notFound;   \r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments/:commentId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "136"
+								},
+								{
+									"key": "eventId",
+									"value": "108"
+								},
+								{
+									"key": "commentId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comment 2 for event 108 by user 137",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 204\", function () {\r",
+									"    pm.response.to.have.status(204);   \r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments/:commentId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								},
+								{
+									"key": "eventId",
+									"value": "108"
+								},
+								{
+									"key": "commentId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comment 2 for event 108 deleted by user 137",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response must have status 404 and json body response\", function () {\r",
+									"    pm.response.to.be.notFound;   \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments/:commentId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"comments",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								},
+								{
+									"key": "eventId",
+									"value": "108"
+								},
+								{
+									"key": "commentId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}
